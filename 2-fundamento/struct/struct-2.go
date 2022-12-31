@@ -27,7 +27,7 @@ func (client *Client) walk() {
 }
 
 // To simulate is ideal that don't alter the value of client bank balance but the copy of value.
-// For this dont' happen use pointer.
+// For that doesn't happen use pointer.
 func (client BankAccount) simulate(value int) int {
 	client.balance += value
 	println(client.balance)
