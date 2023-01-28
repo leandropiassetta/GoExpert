@@ -62,4 +62,12 @@ Motivação da criação da Linguagem?
 * Deploy absurdamente simples(um arquivo binário)
 * Baixa curva de aprendizao
 
+- como funciona o processo de compilação do GO? 
+RUNTIME
+
+código do GO RUNTIME - tudo que eu preciso pra rodar a linguagem GO e seus Recursos que ela possui esta dentro da pasta src/
+TODAS as dependencias do Go, está no RUNTIME.
+
+RUNTIME + SEU CÓDIGO = binário
+
 

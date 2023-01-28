@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func TranslateLove(word string) (string, error) {
+func TranslateLoveForPortugueseWord(word string) (string, error) {
 	if strings.ToUpper(word) != "LOVE" {
 		return "", fmt.Errorf("D'ont translate this word: %s", word)
 	}

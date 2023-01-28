@@ -12,7 +12,7 @@ import (
 
 func main() {
 	sum := mathematics.Sum(10.10, 10.10)
-	loveInPortuguese, err := portuguese.TranslateLove("love")
+	loveInPortuguese, err := portuguese.TranslateLoveForPortugueseWord("love")
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
 	}
