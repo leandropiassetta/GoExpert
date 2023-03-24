@@ -8,7 +8,7 @@ import (
 
 func main() {
 	// creating file
-	f, err := os.Create("arquivo.txt")
+	f, err := os.Create("archive.txt")
 	if err != nil {
 		panic(err)
 	}
@@ -30,7 +30,7 @@ func main() {
 
 	// Reading file
 
-	file, err := os.ReadFile("arquivo.txt")
+	file, err := os.ReadFile("archive.txt")
 	if err != nil {
 		panic(err)
 	}
@@ -44,7 +44,7 @@ func main() {
 
 	// in this cases! we read little by little
 
-	file2, err := os.Open("arquivo.txt")
+	file2, err := os.Open("archive.txt")
 	if err != nil {
 		panic(err)
 	}
@@ -69,7 +69,7 @@ func main() {
 
 	// removing file
 
-	err = os.Remove("arquivo.txt")
+	err = os.Remove("archive.txt")
 	if err != nil {
 		panic(err)
 	}

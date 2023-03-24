@@ -15,7 +15,7 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	// anonymous function
+	// anonymous function:
 	// mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 	// 	w.Write([]byte("Hello World!"))
 	// })
