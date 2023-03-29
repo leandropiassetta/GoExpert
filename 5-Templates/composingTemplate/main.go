@@ -1,8 +1,13 @@
 package main
 
 import (
-	"net/http"
-	"text/template"
+
+	// have two package for template html and text, what the difference between the two?
+
+	// html -> he know that parse in html and knowing this will shield itself from attacks, its better for show in the browser
+	"html/template"
+	"os"
+	"strings"
 )
 
 type Course struct {
@@ -21,22 +26,21 @@ func main() {
 		"footer.html",
 	}
 
-	http.HandleFunc("/", func(writer http.ResponseWriter, r *http.Request) {
-		template := template.Must(template.New("content.html").ParseFiles(templates...))
+	t := template.New("content.html")
 
-		// get the datas of my execute and throw in my response writer.
-		error := template.Execute(writer, Courses{
-			{"GO", 140},
-			{"JavaScript", 80},
-			{"Python", 30},
-			{"React", 50},
-			{"Node", 100},
-		})
+	// i can make a map of functions here inside to be parsed
+	t.Funcs(template.FuncMap{"ToUpper": strings.ToUpper})
+	t = template.Must(template.ParseFiles(templates...))
 
-		if error != nil {
-			panic(error)
-		}
+	error := t.Execute(os.Stdout, Courses{
+		{"GO", 140},
+		{"JavaScript", 80},
+		{"Python", 30},
+		{"React", 50},
+		{"Node", 100},
 	})
 
-	http.ListenAndServe(":8282", nil)
+	if error != nil {
+		panic(error)
+	}
 }

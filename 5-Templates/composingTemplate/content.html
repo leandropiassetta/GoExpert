@@ -11,14 +11,13 @@
     </thead>
     <tbody>
       {{ range . }}
-        {{ if eq  .WorkLoad 30 }}
             <tr>
-              <td>{{ .Name }}</td>
+              <td>{{ .Name | ToUpper }}</td>
               <td>{{ .WorkLoad }}</td>
             </tr>
-          {{ end }}
             {{ end }}
     </tbody>
+  </table>
 
 {{ template "footer.html" }}
 
