@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	mathematics "packageModules/mathematics"
+	mathematic "packageModules/mathematic"
 	portuguese "packageModules/portuguese"
 )
 
@@ -11,7 +11,7 @@ import (
 // the ideal is created the module with name with your github address
 
 func main() {
-	sum := mathematics.Sum(10.10, 10.10)
+	sum := mathematic.Sum(10.10, 10.10)
 	loveInPortuguese, err := portuguese.TranslateLoveForPortugueseWord("love")
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)

@@ -1,4 +1,4 @@
-package mathematics
+package mathematic
 
 // Constraint that i created
 type Number interface {
