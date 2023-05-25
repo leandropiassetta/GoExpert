@@ -25,5 +25,3 @@ func NewProduct(name string, price float64) *Product {
 func main() {
 	fmt.Println()
 }
-
-// testando git
