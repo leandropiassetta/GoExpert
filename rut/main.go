@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// matchRutData find all ruts in the sample and check if the rut is valid
 func matchRutData(sample string) string {
 	var allRuts string
 	regexRut := regexp.MustCompile(`\d{2}[\s\.]?\d{3}[\s\.]?\d{3}[\s\-]?[0-9kK]`)
@@ -33,9 +34,11 @@ func matchDigitVerificator(rut string) bool {
 
 	digitVerificatorValid := calculateDigitVerificator(rutReceivedWithoutDigitVerificator)
 
+	fmt.Println("digit verificator valid: ", digitVerificatorValid)
+
 	// compare the digit verificator valid with the digit verificator of the rut received
-	if strings.ToUpper(digitVerificatorValid) != digitVerificatorRutReceived {
-		fmt.Printf("The rut is invalid: %s", rut)
+	if strings.ToUpper(digitVerificatorValid) != strings.ToUpper(digitVerificatorRutReceived) {
+		fmt.Printf("The rut is invalid: %s ", rut)
 		return false
 	}
 
