@@ -9,48 +9,46 @@ import (
 
 func matchRutData(sample string) string {
 	var allRuts string
+	regexRut := regexp.MustCompile(`\d{2}[\s\.]?\d{3}[\s\.]?\d{3}[\s\-]?[0-9kK]`)
+	matches := regexRut.FindAllString(sample, -1)
 
-	for i := 0; i < len(sample); i++ {
-		initialPosition := i
-		finalPosition := i + 12
+	fmt.Printf("ruts to be checked: %v\n", matches)
 
-		if finalPosition > len(sample) {
-			break
+	for _, rut := range matches {
+
+		isRut := matchDigitVerificator(rut)
+		if isRut {
+			allRuts += fmt.Sprintf("rut found: %s\n", rut)
 		}
-
-		rut := sample[initialPosition:finalPosition]
-
-		rut, _, isRut := rutChile(rut)
-		if !isRut {
-			continue
-		}
-
-		allRuts += fmt.Sprintf("RUT ==>: %s\n", rut)
 	}
 
 	return allRuts
 }
 
-func rutChile(rut string) (string, error, bool) {
-	// validate if rut have the correct format
-	regexRut := regexp.MustCompile(`^[0-9]{2}\.[0-9]{3}\.[0-9]{3}-[0-9kK]$`)
-	rutIsValid := regexRut.MatchString(rut)
+func matchDigitVerificator(rut string) bool {
+	rutWithoutSymbols := cleanRut(rut)
 
-	if !rutIsValid {
-		fmt.Println("The rut is invalid:", rut)
+	digitVerificatorRutReceived := rutWithoutSymbols[len(rutWithoutSymbols)-1:]
+	rutReceivedWithoutDigitVerificator := rutWithoutSymbols[:len(rutWithoutSymbols)-1]
 
-		return "", fmt.Errorf("The rut is invalid: %s", rut), false
+	digitVerificatorValid := calculateDigitVerificator(rutReceivedWithoutDigitVerificator)
+
+	// compare the digit verificator valid with the digit verificator of the rut received
+	if strings.ToUpper(digitVerificatorValid) != digitVerificatorRutReceived {
+		fmt.Printf("The rut is invalid: %s", rut)
+		return false
 	}
 
-	if !matchDigitVerificator(rut) {
-		fmt.Println("The rut is invalid:", rut)
+	return true
+}
 
-		return "", fmt.Errorf("The rut is invalid: %s", rut), false
-	}
+// cleanRut remove the symbols of the rut received for calculate the digit verificator valid and compare with the digit verificator of the rut received
+func cleanRut(rut string) string {
+	rutWithoutSymbols := strings.ReplaceAll(rut, ".", "")
+	rutWithoutSymbols = strings.ReplaceAll(rutWithoutSymbols, "-", "")
+	rutWithoutSymbols = strings.ReplaceAll(rutWithoutSymbols, " ", "")
 
-	fmt.Println("The rut is valid:", rut)
-
-	return rut, nil, true
+	return rutWithoutSymbols
 }
 
 func calculateDigitVerificator(rutWithoutDots string) string {
@@ -75,46 +73,13 @@ func calculateDigitVerificator(rutWithoutDots string) string {
 	if digitVerificator == "11" {
 		digitVerificator = "0"
 	} else if digitVerificator == "10" {
-		digitVerificator = "k"
+		digitVerificator = "K"
 	}
 
 	return digitVerificator
 }
 
-func matchDigitVerificator(rut string) bool {
-	// remove the dots and the digit verificator from the rut to calculate the digit verificator again and compare with the digit verificator
-	rutWithoutDots := strings.Split(strings.ReplaceAll(rut, ".", ""), "-")[0]
-
-	// calculate the digit verificator
-	digitVerificatorValid := calculateDigitVerificator(rutWithoutDots)
-
-	// compare the digit verificator calculated with the digit verificator of the rut received
-	digitVerificatorReceived := strings.Split(rut, "-")[1]
-
-	if digitVerificatorValid != digitVerificatorReceived {
-		return false
-	}
-
-	return true
-}
-
 func main() {
-	// rutChile("20.216.023-9")
-	// rutChile("64.630.536-5")
-	// rutChile("25.566.862-5")
-	// rutChile("42.733.846-0")
-	// rutChile("86.962.200-1")
-	// rutChile("37.311.245-3")
-	// rutChile("35.203.080-5")
-	// rutChile("10.812.817-8")
-	// rutChile("83.452.556-9")
-	// rutChile("30.510.663-1")
-	// rutChile("16.505.024-k")
-	// rutChile("16.505.24-k")
-	// rutChile("00.000.24-k")
-	// rutChile("99.999.99-9")
-	// rutChile("11.111.11-1")
-	// rutChile("20.216.aaa-9")
-	sample := "20.216.023-9Lorem ipsum dolor sit amet, consectetur adipiscing elit rut: 20.216.023-9,lorem, ipsum dolor sit amet, consectetur adipiscing elit rut: 64.630.536-5, lorem ipsum dolor sit amet"
-	fmt.Printf("Thats Ruts was founded in the sample: \n%s", matchRutData(sample))
+	sample := "Lorem ipsum dolor sit amet, consectetur adipiscing elit rut:53 723 007 K,lorem, ipsum 	 dolor sit amet, consectetur adipiscing eli, lorem ipsum dolor sit amet"
+	fmt.Printf("these ruts were found in the samples: \n%s", matchRutData(sample))
 }
