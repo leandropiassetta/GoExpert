@@ -1,3 +1,3 @@
-module packageModules
+module Users/lpiasseta/Projects/GoLang/GoExpert/packageModules
 
-go 1.19
+go 1.20

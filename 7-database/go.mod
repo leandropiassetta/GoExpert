@@ -2,7 +2,10 @@ module github.com/leandropiassetta/GoExpert
 
 go 1.19
 
-require github.com/google/uuid v1.3.0
+require (
+	github.com/go-sql-driver/mysql v1.7.1
+	github.com/google/uuid v1.3.0
+)
 
 // go mod tidy -> run this command and this command for see the imports and download the external packages
 // go mod init -> run this command and this command create a file go.mod

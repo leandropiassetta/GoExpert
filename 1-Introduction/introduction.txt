@@ -1,0 +1,70 @@
+Go is a language that is in high demand in the market because it can handle a large number of requests in day-to-day operations.
+
+Go (often referred to as GoLang for easier internet searches) is:
+
+An open-source programming language designed to make developers more productive.
+Expressive, concise, clean, and efficient.
+Built to make the most of multicore and networking capabilities.
+It offers fast compilation while working with garbage collection.
+It is fast, statically typed, compiled, but at the same time feels like a dynamically typed and interpreted language.
+It compiles into a single binary file.
+
+History:
+
+Go was created at Google:
+- Development started in September 2007.
+- Version 1.0 was released in 2012.
+- Starting from version 1.5, the Go compiler was written in Go itself.
+- Backward compatibility is guaranteed in version 1.
+
+Engineers:
+- Rob Pike -> UNIX & UTF-8
+- Robert Griesemer -> V8
+- Ken Thompson -> UNIX & UTF-8
+
+What Go is not:
+
+A programming language that will solve all your problems.
+It is not a dynamically typed language.
+It does not come with excessive features or frills.
+
+Who uses Go?
+
+* Google
+* Meta
+* PayPal
+* Dropbox
+* Microsoft
+* MercadoLibre
+* Twitter
+* American Express
+* Capital One
+* Uber
+* Netflix
+* Twitch
+* Riot Games
+And many more...
+
+- Motivation for creating the language:
+
+Limitations of existing languages used at Google.
+* Python: Slowness issues.
+* C/C++: Complexity and long compilation times.
+* Java: Accumulated complexity and verbosity.
+
+- Lack of native support for multithreading and concurrency.
+- Focus on simplicity.
+- Native testing and profiling frameworks.
+- Built-in detection of race conditions.
+- Extremely simple deployment (a single binary file).
+- Low learning curve.
+
+- As for the compilation process of Go ?
+
+The Go runtime includes the Go runtime library and all the resources needed to run Go programs. Everything required to run Go and its built-in features is located within the "src/" folder in the Go runtime.
+
+To compile a Go program, you combine your code with the Go runtime, resulting in a binary executable file.
+
+RUNTIME + YOUR CODE = binary
+
+
