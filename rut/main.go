@@ -34,8 +34,6 @@ func matchDigitVerificator(rut string) bool {
 
 	digitVerificatorValid := calculateDigitVerificator(rutReceivedWithoutDigitVerificator)
 
-	fmt.Println("digit verificator valid: ", digitVerificatorValid)
-
 	// compare the digit verificator valid with the digit verificator of the rut received
 	if strings.ToUpper(digitVerificatorValid) != strings.ToUpper(digitVerificatorRutReceived) {
 		fmt.Printf("The rut is invalid: %s ", rut)
@@ -83,6 +81,6 @@ func calculateDigitVerificator(rutWithoutDots string) string {
 }
 
 func main() {
-	sample := "Lorem ipsum dolor sit amet, consectetur adipiscing elit rut:53 723 007 K,lorem, ipsum 	 dolor sit amet, consectetur adipiscing eli, lorem ipsum dolor sit amet"
+	sample := "Lorem ipsum dolor sit amet, consectetur adipiscing elit rut:53 723 007 K,lorem, ipsum rut: 86.637.312-4  dolor sit amet, consectetur adipiscing eli, lorem ipsum dolor sit amet rut: 662653349"
 	fmt.Printf("these ruts were found in the samples: \n%s", matchRutData(sample))
 }
