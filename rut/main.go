@@ -10,7 +10,7 @@ import (
 // matchRutData find all ruts in the sample and check if the rut is valid
 func matchRutData(sample string) string {
 	var allRuts string
-	regexRut := regexp.MustCompile(`\d{2}[\s\.]?\d{3}[\s\.]?\d{3}[\s\-]?[0-9kK]`)
+	regexRut := regexp.MustCompile(`(\b\d{2}[\s\.]?\d{3}[\s\.]?\d{3}[\s\-]?[0-9kK]\b)`)
 	matches := regexRut.FindAllString(sample, -1)
 
 	fmt.Printf("ruts to be checked: %v\n", matches)
@@ -30,7 +30,13 @@ func matchDigitVerificator(rut string) bool {
 	rutWithoutSymbols := cleanRut(rut)
 
 	digitVerificatorRutReceived := rutWithoutSymbols[len(rutWithoutSymbols)-1:]
+
+	fmt.Printf("rut received: %s\n", rutWithoutSymbols)
+	fmt.Printf("digit verificator received: %s\n", digitVerificatorRutReceived)
+
 	rutReceivedWithoutDigitVerificator := rutWithoutSymbols[:len(rutWithoutSymbols)-1]
+
+	fmt.Printf("rut received without digit verificator: %s\n", rutReceivedWithoutDigitVerificator)
 
 	digitVerificatorValid := calculateDigitVerificator(rutReceivedWithoutDigitVerificator)
 
@@ -81,6 +87,6 @@ func calculateDigitVerificator(rutWithoutDots string) string {
 }
 
 func main() {
-	sample := "Lorem ipsum dolor sit amet, consectetur adipiscing elit rut:53 723 007 K,lorem, ipsum rut: 86.637.312-4  dolor sit amet, consectetur adipiscing eli, lorem ipsum dolor sit amet rut: 662653349"
-	fmt.Printf("these ruts were found in the samples: \n%s", matchRutData(sample))
+	sample := "lorem ipsum dolor sit 86.637.312-4, 866373124,41202141k, 866373125 "
+	fmt.Printf("these ruts were found in the sample: \n%s", matchRutData(sample))
 }

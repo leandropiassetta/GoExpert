@@ -45,7 +45,7 @@ func main() {
 
 	// TCP -> is a network protocol that is used to establish a connection with the database of form secure and encrypted and garantize the integrity of the data that is sent and received and also garantize that the data is sent and received in the correct order without any data loss in the middle of the process on internet
 
-	db, err := sql.Open("mysql", "root:root@tcp(localhost:3306)/goexpert")
+	db, err := sql.Open("mysql", "root:root@tcp(localhost:3305)/goexpert")
 	if err != nil {
 		panic(err.Error())
 	}
