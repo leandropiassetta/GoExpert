@@ -16,25 +16,31 @@ func main() {
 		panic(err)
 	}
 
-	db.AutoMigrate(&models.Product{}, &models.Category{})
+	db.AutoMigrate(&models.Product{}, &models.Category{}, &models.SerialNumber{})
 
-	// // create category
+	// create category
 	category := models.Category{Name: "Electronic"}
 	db.Create(&category)
 
 	// create product
 	db.Create(&models.Product{
-		Name:       "Notebook",
-		Price:      5000.10,
+		Name:       "smartphone",
+		Price:      2000.10,
 		CategoryID: 1,
+	})
+
+	// create serial number
+	db.Create(&models.SerialNumber{
+		Number:    "123456789",
+		ProductID: 1,
 	})
 
 	var products []models.Product
 
 	// db.Preload("Category") -> join the table category with the table product and the preload is used to get the data of the table category in the table product
-	db.Preload("Category").Find(&products)
+	db.Preload("Category").Preload("SerialNumber").Find(&products)
 
 	for _, product := range products {
-		fmt.Println(product.Name, product.Price, product.Category.Name)
+		fmt.Println(product.Name, product.Price, product.Category.Name, product.SerialNumber.Number)
 	}
 }

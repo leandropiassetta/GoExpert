@@ -98,5 +98,7 @@ func main() {
 	var product2 Product
 	db.First(&product2, 1)
 	fmt.Println(product2)
+
+	// soft delete -> update the deleted at with the current date and time and the record is not deleted in the database
 	db.Delete(&product2)
 }
