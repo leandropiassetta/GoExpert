@@ -89,11 +89,11 @@ func main() {
 		fmt.Println(product)
 	}
 
-	var product Product
+	// var product Product
 
-	db.First(&product, 1)
-	product.Name = "New Television"
-	db.Save(&product)
+	// db.First(&product, 1)
+	// product.Name = "New Television"
+	// db.Save(&product)
 
 	var product2 Product
 	db.First(&product2, 1)
