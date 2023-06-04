@@ -1,0 +1,32 @@
+	// statement -> this term is used to refer to a instruction that is executed in the database, a statement can be a query or a command that represents a action in the database like insert, update, delete, create, alter, drop, etc ... and a statement can be a prepared statement or a non-prepared statement and a statement can be a single statement or a batch statement and a statement can be a simple statement or a compound statement and a statement can be a transactional statement or a non-transactional statement and a statement can be a read-only statement or a read-write statement and a statement can be a data definition statement or a data manipulation statement and a statement can be a data control statement or a data query statement 
+
+
+
+// exist different types of statements in the database like:
+
+// - simple statement -> is a statement that is executed in the database without any condition
+// - compound statement -> is a statement that is executed in the database with a condition
+// - transactional statement -> is a statement that is executed in the database with a transaction
+// - non-transactional statement -> is a statement that is executed in the database without a transaction
+// - read-only statement -> is a statement that is executed in the database without modify the data
+// - read-write statement -> is a statement that is executed in the database with modify the data
+// - data definition statement -> is a statement that is executed in the database to create, alter or drop a table
+// - data manipulation statement -> is a statement that is executed in the database to insert, update or delete data in a table
+// - data control statement -> is a statement that is executed in the database to grant or revoke privileges to a user
+// - data query statement -> is a statement that is executed in the database to select data from a table
+
+// exist different types of statements in SQL like:
+
+// - DDL -> Data Definition Language -> is a statement that is executed in the database to create, alter or drop a table
+// - DML -> Data Manipulation Language -> is a statement that is executed in the database to insert, update or delete data in a table
+// - DCL -> Data Control Language -> is a statement that is executed in the database to grant or revoke privileges to a user
+// - DQL -> Data Query Language -> is a statement that is executed in the database to select data from a table
+
+
+// exist different types of statements in SQL like:
+
+// - DDL -> Data Definition Language -> is a statement that is executed in the database to create, alter or drop a table
+// - DML -> Data Manipulation Language -> is a statement that is executed in the database to insert, update or delete data in a table
+// - DCL -> Data Control Language -> is a statement that is executed in the database to grant or revoke privileges to a user
+// - DQL -> Data Query Language -> is a statement that is executed in the database to select data from a table
+
