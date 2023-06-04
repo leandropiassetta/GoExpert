@@ -18,7 +18,7 @@ func main() {
 	// my connection with the database
 	// dsn is a string that contains the connection information
 	// dsn -> data source name
-	dsn := "root:root@tcp(localhost:3306)/goexpert"
+	dsn := "root:root@tcp(localhost:3305)/goexpert"
 
 	// open the connection with the database
 
@@ -31,4 +31,26 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	// AutoMigrate() -> create the table in the database with the struct Product and the tags of the struct Product are used to create the table in the database with the name of the column and the primary key of the table and the auto increment of the primary key of the table in the database and the type of the column in the database (varchar, int, float, etc) and the size of the column in the database (varchar(255), int(11), etc) and the default value of the column in the database (default 0, default 'name', etc) and the not null of the column in the database (not null, null, etc)
+	db.AutoMigrate(&Product{})
+
+	// Create() -> create the record in the database
+	// &Product{} -> define the record that will be created in the database
+
+	// db.Create(&Product{
+	// 	Name:  "Television",
+	// 	Price: 2000.10,
+	// })
+
+	// create batch of records in the database with the same struct
+	products := []Product{
+		{Name: "Notebook", Price: 3000.10},
+		{Name: "Smartphone", Price: 1000.10},
+		{Name: "Tablet", Price: 1500.10},
+	}
+
+	db.Create(&products)
+
+	// Find() -> find the record in the database
 }
