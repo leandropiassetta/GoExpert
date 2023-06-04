@@ -94,6 +94,8 @@ func main() {
 	for _, product := range products {
 		fmt.Printf("Product: %+v, have the price of: %.2f\n", product.Name, product.Price)
 	}
+
+	err = deleteProduct(db, product.ID)
 }
 
 func insertProduct(db *sql.DB, product *Product) error {
@@ -199,4 +201,25 @@ func selectAllProducts(db *sql.DB) ([]*Product, error) {
 	}
 
 	return products, nil
+}
+
+func deleteProduct(db *sql.DB, id string) error {
+	stmt, err := db.Prepare("DELETE FROM products WHERE id = ?")
+	if err != nil {
+		return err
+	}
+
+	// close the statement after the execution of the function
+	defer stmt.Close()
+
+	// execute the statement with the arguments
+
+	// when i want execute a action in the database i use the exec method of the statement object and when i want to get the rows of the query in the database i use the query method of the statement object
+	_, err = stmt.Exec(id)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
