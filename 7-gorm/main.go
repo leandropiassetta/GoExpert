@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -38,10 +40,10 @@ func main() {
 	// Create() -> create the record in the database
 	// &Product{} -> define the record that will be created in the database
 
-	// db.Create(&Product{
-	// 	Name:  "Television",
-	// 	Price: 2000.10,
-	// })
+	db.Create(&Product{
+		Name:  "Television",
+		Price: 2000.10,
+	})
 
 	// create batch of records in the database with the same struct
 	products := []Product{
@@ -52,5 +54,20 @@ func main() {
 
 	db.Create(&products)
 
-	// Find() -> find the record in the database
+	// select one
+	var product Product
+
+	// db.First(&product, 2)
+	// fmt.Println(product)
+
+	db.First(&product, "product_name = ?", "Smartphone")
+	fmt.Println(product)
+
+	// select all
+	var products2 []Product
+	db.Find(&products2)
+
+	for _, product := range products2 {
+		fmt.Println(product)
+	}
 }
