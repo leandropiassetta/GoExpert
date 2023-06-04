@@ -14,13 +14,15 @@ type Product struct {
 	ID    int     `gorm:"primaryKey"`
 	Name  string  `gorm:"column:product_name"`
 	Price float64 `gorm:"column:product_price"`
+	// gorm.Model -> help to create the table in the database with the primary key and the auto increment of the primary key and the created at and the updated at and the deleted at
+	gorm.Model
 }
 
 func main() {
 	// my connection with the database
 	// dsn is a string that contains the connection information
 	// dsn -> data source name
-	dsn := "root:root@tcp(localhost:3305)/goexpert"
+	dsn := "root:root@tcp(localhost:3305)/goexpert?charset=utf8mb4&parseTime=True&loc=Local"
 
 	// open the connection with the database
 
@@ -55,19 +57,46 @@ func main() {
 	db.Create(&products)
 
 	// select one
-	var product Product
+	// var product Product
 
 	// db.First(&product, 2)
 	// fmt.Println(product)
 
-	db.First(&product, "product_name = ?", "Smartphone")
-	fmt.Println(product)
+	// db.First(&product, "product_name = ?", "Smartphone")
+	// fmt.Println(product)
 
 	// select all
 	var products2 []Product
 	db.Find(&products2)
 
-	for _, product := range products2 {
+	// limit two records and offset two records (limit 2 offset 2) -> select two records and skip two records
+	db.Limit(2).Offset(2).Find(&products2)
+
+	// for _, product := range products2 {
+	// 	fmt.Println(product)
+	// }
+
+	// where
+	var products3 []Product
+	db.Where("product_price > ?", 1600).Find(&products3)
+
+	// for _, product := range products3 {
+	// 	fmt.Println(product)
+	// }
+
+	db.Where("product_name LIKE ?", "%book%").Find(&products3)
+	for _, product := range products3 {
 		fmt.Println(product)
 	}
+
+	var product Product
+
+	db.First(&product, 1)
+	product.Name = "New Television"
+	db.Save(&product)
+
+	var product2 Product
+	db.First(&product2, 1)
+	fmt.Println(product2)
+	db.Delete(&product2)
 }
