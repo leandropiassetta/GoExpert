@@ -3,8 +3,9 @@ package models
 import "gorm.io/gorm"
 
 type Category struct {
-	ID   int    `gorm:"primaryKey"`
-	Name string `gorm:"column:category_name"`
+	ID       int    `gorm:"primaryKey"`
+	Name     string `gorm:"column:category_name"`
+	Products []Product
 }
 
 // many products belongs to one category

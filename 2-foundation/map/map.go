@@ -20,4 +20,12 @@ func main() {
 	for name, salary := range salarys {
 		fmt.Printf(" The salary of %s is %d\n", name, salary)
 	}
+	cache := map[string]bool{
+		"i": true,
+		"j": true,
+	}
+
+	if value, ok := cache["c"]; !ok {
+		fmt.Println("valor", value)
+	}
 }
