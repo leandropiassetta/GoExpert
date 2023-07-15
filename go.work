@@ -1,6 +1,7 @@
-go 1.20
+go 1.19
 
 use (
 	./7-database
 	./7-gorm
+	./challenge-client-server-API
 )

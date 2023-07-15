@@ -1,5 +1,7 @@
 package packageModules
 
+import "fmt"
+
 // When created a project in Go, the first thing that we have make is created the package go mod with command "go mod init"
 // the ideal is created the module with name with your github address
 

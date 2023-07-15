@@ -27,11 +27,9 @@ func testUseCase(err string) string {
 	switch {
 	case condicionA:
 		msg = throwMessageError(msg)
-		return msg
 	case condicionB:
 		msg = throwMessageError(msg)
 		// println("condicionB", msg)
-		return msg
 	default:
 		registerMessage(msg)
 	}
