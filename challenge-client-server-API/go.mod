@@ -1,4 +1,4 @@
-module github.com/leandropiassetta/chalenge-client-server-API
+module github.com/leandropiassetta/GoExpert/challenge-client-server-API
 
 go 1.20
 
