@@ -11,10 +11,9 @@ import (
 // cmd -> contains archives of execution of the application, archives that are executed when we run the command go run main.go
 
 func main() {
-	math := math.Math{
-		A: 10,
-		B: 20,
-	}
+	math := math.NewMath(1, 2, "mathematic")
 
+	fmt.Println(math)
+	fmt.Println(math.Class())
 	fmt.Println(math.Sum())
 }
