@@ -1,0 +1,4 @@
+github.com/google/uuid v1.3.0 h1:t6JiXgmwXMjEs8VusXIJk2BXHsn+wx8BZdTaoZ5fu7I=
+github.com/google/uuid v1.3.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
+
+// go.sum -> its a file that contains the checksum of the modules that we are using, is a lock file, he garanty that the version of the module that we are using is the same that we used before, if we change the version of the module, we need to change the checksum too. Commit this file is a good practice.
