@@ -1,0 +1,1 @@
+pkg folder -> here save all your project code, and you can use it in your project, and you can use it in another project, because it's public, and you can use it in another project

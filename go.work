@@ -1,3 +1,10 @@
 go 1.20
 
-use ./7-packaging
+use (
+	./7-packaging/1
+	./7-packaging/2
+	./8-testing/class-one
+	./8-testing/class-two
+	./8-testing/class-three
+	./8-testing/class-four
+)

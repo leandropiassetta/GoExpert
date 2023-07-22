@@ -1,0 +1,3 @@
+golang-standards/project-layout -> help you to understand the project structure and how to use it in your project, it's not a library or a framework. It's just an example of how you could organize your code. You can use it as a reference or as a bootstrap.
+
+api paste -> her save documentations of api and how to use it, and how to use it in your project
