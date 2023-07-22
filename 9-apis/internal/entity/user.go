@@ -3,9 +3,10 @@ package entity
 // Entity is where we define our rules of our business logic and our data structure for our application.
 
 import (
-	"github.com/x/crypto"
+	"github.com/x/crypto/bcrypt"
 )
 
+// VO - Value Object
 type User struct {
 	ID       string `json:"id"`
 	Name     string `json:"name"`
@@ -24,6 +25,12 @@ func NewUser(id, name, email, password string) (*User, error) {
 		ID:       id,
 		Name:     name,
 		Email:    email,
-		Password: hashedPassword,
-	}
+		Password: string(hashedPassword),
+	}, nil
+}
+
+// ValidatePassword is a method that will be used to compare the password with the hash password
+func (u *User) ValidatePassword(password string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(password))
+	return err == nil
 }

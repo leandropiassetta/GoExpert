@@ -7,4 +7,6 @@ use (
 	./8-testing/class-two
 	./8-testing/class-three
 	./8-testing/class-four
+	./9-apis
+	./9-apis/internal/entity
 )
