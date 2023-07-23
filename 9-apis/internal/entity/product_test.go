@@ -1,14 +1,14 @@
-package product_test
+package entity_test
 
 import (
 	"testing"
 
-	product "github.com/leandropiassetta/goexpert/9-apis/internal/entity/product"
+	"github.com/leandropiassetta/goexpert/9-apis/internal/entity"
 	"github.com/stretchr/testify/assert"
 )
 
 func Test_NewProduct(t *testing.T) {
-	p, err := product.NewProduct("Product 1", 100)
+	p, err := entity.NewProduct("Product 1", 100)
 
 	assert.Nil(t, err)
 	assert.NotNil(t, p)
@@ -19,28 +19,28 @@ func Test_NewProduct(t *testing.T) {
 }
 
 func Test_ProductWhenNameIsRequired(t *testing.T) {
-	p, err := product.NewProduct("", 100)
+	p, err := entity.NewProduct("", 100)
 
 	assert.Nil(t, p)
-	assert.Equal(t, product.ErrorNameIsRequired, err)
+	assert.Equal(t, entity.ErrorNameIsRequired, err)
 }
 
 func Test_ProductWhenPriceIsRequired(t *testing.T) {
-	p, err := product.NewProduct("Product 1", 0)
+	p, err := entity.NewProduct("Product 1", 0)
 
 	assert.Nil(t, p)
-	assert.Equal(t, product.ErrorPriceIsRequired, err)
+	assert.Equal(t, entity.ErrorPriceIsRequired, err)
 }
 
 func Test_ProductWhenPriceIsInvalid(t *testing.T) {
-	p, err := product.NewProduct("Product 1", -1)
+	p, err := entity.NewProduct("Product 1", -1)
 
 	assert.Nil(t, p)
-	assert.Equal(t, product.ErrorInvalidPrice, err)
+	assert.Equal(t, entity.ErrorInvalidPrice, err)
 }
 
 func Test_ProductValidate(t *testing.T) {
-	p, err := product.NewProduct("Product 1", 10)
+	p, err := entity.NewProduct("Product 1", 10)
 
 	assert.Nil(t, err)
 	assert.NotNil(t, p)

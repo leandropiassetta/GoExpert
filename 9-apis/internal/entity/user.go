@@ -1,4 +1,4 @@
-package user
+package entity
 
 // Entity is where we define our rules of our business logic and our data structure for our application.
 
