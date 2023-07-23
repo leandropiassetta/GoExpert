@@ -1,4 +1,4 @@
-package entity
+package user
 
 // Entity is where we define our rules of our business logic and our data structure for our application.
 
@@ -20,7 +20,6 @@ func NewUser(name, email, password string) (*User, error) {
 	if err != nil {
 		return nil, err
 	}
-
 
 	return &User{
 		ID:       entity.NewID(),
