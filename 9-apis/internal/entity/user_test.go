@@ -50,7 +50,6 @@ func (user *UserMock) ValidatePassword(password string) bool {
 func Test_NewUser(t *testing.T) {
 	userMock := &UserMock{}
 	id := uuid.UUID{}
-
 	expectedUser := entity.User{
 		ID:       id,
 		Name:     "Leandro",
@@ -58,10 +57,20 @@ func Test_NewUser(t *testing.T) {
 		Password: "123456",
 	}
 
-	userMock.On("NewUser", "Leandro", "leandro@gmail.com", "123456").Return(expectedUser, nil)
+	t.Run("should return an error if password is too long", func(t *testing.T) {
+		userMock.On("NewUser", "Leandro", "leandro@gmail.com", "senha_muito_longa_que_vai_ultrapassar_o_limite_de_72_caracteres_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx").Return(entity.User{}, errors.New("password is too long"))
 
-	newUser, err := userMock.NewUser("Leandro", "leandro@gmail.com", "123456")
+		_, err := userMock.NewUser("Leandro", "leandro@gmail.com", "senha_muito_longa_que_vai_ultrapassar_o_limite_de_72_caracteres_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+
+		assert.Error(t, err)
+	})
+
+	t.Run("should return a user", func(t *testing.T) {
+		userMock.On("NewUser", "Leandro", "leandro@gmail.com", "123456").Return(expectedUser, nil)
+	})
+
+	user, err := userMock.NewUser("Leandro", "leandro@gmail.com", "123456")
 
 	assert.Nil(t, err)
-	assert.Equal(t, expectedUser, newUser)
+	assert.Equal(t, expectedUser, user)
 }
