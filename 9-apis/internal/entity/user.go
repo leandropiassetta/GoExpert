@@ -15,11 +15,12 @@ type User struct {
 	Password string    `json:"-"` // the minus sign means that this field will not be marshalled and unmarshalled from the json file (it will not be exposed to the outside world) but it will be used internally in our application (for example to compare the password with the hash password) and it will be stored in the database (because we need to store the hash password in the database)
 }
 
-func NewUser(id, name, email, password string) (*User, error) {
+func NewUser(name, email, password string) (*User, error) {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
 		return nil, err
 	}
+
 
 	return &User{
 		ID:       entity.NewID(),
