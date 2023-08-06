@@ -41,6 +41,7 @@ func main() {
 
 	// POST /products - create a new product and return the product in the response body as JSON (StatusCreated) or return a status code 400 (BadRequest) if the request body is invalid or a status code 500 (InternalServerError) if there was an error while saving the product into the database
 	router.Post("/products", ProductHandler.CreateProduct)
+	router.Get("/products", ProductHandler.GetProducts)
 	router.Get("/products/{id}", ProductHandler.GetProduct)
 	router.Put("/products/{id}", ProductHandler.UpdateProduct)
 	router.Delete("/products/{id}", ProductHandler.DeleteProduct)
