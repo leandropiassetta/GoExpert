@@ -345,15 +345,15 @@ func main() {
 	// Criar instância de TableBasics
 	basics := TableBasics{
 		DynamoDbClient: dynamoDBClient,
-		TableName:      "DiscoveryDynamoTest",
+		TableName:      "DynamoTest",
 	}
 
 	// Chamar o método para criar a tabela
-	basics.CreateTable()
+	// basics.CreateTable()
 
 	// Chamar o método para ler os itens da tabela
 	basics.ScanRecords()
 
 	// Chamar o método para pegar os atributos da tabela
-	basics.GetTableAttributes()
+	// basics.GetTableAttributes()
 }
