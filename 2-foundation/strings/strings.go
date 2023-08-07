@@ -52,6 +52,12 @@ func workingWithStrings(word string) string {
 	return string(newWordBytes)
 }
 
+func cleanedMsg(msg string) string {
+	cleanedMsg := strings.Replace(msg, "message:_msg_:", "", -1)
+
+	return cleanedMsg
+}
+
 func main() {
 	keyCache1 := keyCache("name", "age", "", "")
 	keyCache2 := keyCache("name", "", "age", "")
@@ -65,8 +71,11 @@ func main() {
 
 	logMessage := `{"msg":"Table doesn't exist"};Error Code: internal_server_error;Status: 500;Cause: []time="2023-07-13T10:13:26-04:00" msg="saved in cache the message error MySQL dataCollection: Message: Could not sampling data field, status response: 422 Unprocessable Entity; body: {\"msg\":\"Table doesn't exist\"};Error Code: internal_server_error;Status: 500;Cause: []"`
 
+	msgError := "msg := message:_msg_:database_not_open_error_code:_500_cause:"
+
 	bodyText := extractBodyText(logMessage)
 
+	fmt.Println("cleanedMsg: ", cleanedMsg(msgError))
 	fmt.Println("extractBodyText: ", bodyText)
 	fmt.Println("workingWithStrings: ", workingWithStrings("Hello"))
 }
