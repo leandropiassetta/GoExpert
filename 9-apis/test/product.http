@@ -2,13 +2,13 @@ POST http://localhost:8000/products HTTP/3
 Content-Type: application/json
 
 {
-  "name":"My Product-4",
+  "name":"My Product-1",
   "price": 100
 }
 
 ###
 
-GET http://localhost:8000/products?page=0&limit=1&sort=asc HTTP/3
+GET http://localhost:8000/products?page=2&limit=10&sort=asc HTTP/3
 Content-Type: application/json
 
 ###
