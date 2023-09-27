@@ -8,10 +8,16 @@ Content-Type: application/json
 
 ###
 
+//Bearer -> we use this to send the token
 GET http://localhost:8000/products?page=2&limit=10&sort=asc HTTP/3
 Content-Type: application/json
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTU4NDc2NjcsInN1YiI6IjQxNTI2Mjk2LTM5ZmMtNGRmMy1iNjBlLTFkZThmZGE5YmM2ZiJ9.N8HYmIHzzZKejU1xhv0dT9ewyNIBbYXmcaw4FeSKaHE
 ###
+
+
+GET http://localhost:8000/products HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTU4NDc2NjcsInN1YiI6IjQxNTI2Mjk2LTM5ZmMtNGRmMy1iNjBlLTFkZThmZGE5YmM2ZiJ9.N8HYmIHzzZKejU1xhv0dT9ewyNIBbYXmcaw4FeSKaHE
+
 
 GET http://localhost:8000/products/90bd819c-8482-4e02-9842-2643975f89ed HTTP/3
 Content-Type: application/json

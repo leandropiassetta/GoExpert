@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/jwtauth"
 	"github.com/leandropiassetta/goexpert/9-apis/configs"
 	"github.com/leandropiassetta/goexpert/9-apis/internal/entity"
 	"github.com/leandropiassetta/goexpert/9-apis/internal/infra/database"
@@ -47,12 +48,18 @@ func main() {
 	println("Server running on port 8000")
 
 	// POST /products - create a new product and return the product in the response body as JSON (StatusCreated) or return a status code 400 (BadRequest) if the request body is invalid or a status code 500 (InternalServerError) if there was an error while saving the product into the database
+
 	// Product
-	router.Post("/products", productHandler.CreateProduct)
-	router.Get("/products", productHandler.GetProducts)
-	router.Get("/products/{id}", productHandler.GetProduct)
-	router.Put("/products/{id}", productHandler.UpdateProduct)
-	router.Delete("/products/{id}", productHandler.DeleteProduct)
+	router.Route("/products", func(router chi.Router) {
+		// jwt middleware - protected routes - only authenticated users can access
+		router.Use(jwtauth.Verifier(configs.TokenAuth))
+		router.Use(jwtauth.Authenticator)
+		router.Post("/", productHandler.CreateProduct)
+		router.Get("/", productHandler.GetProducts)
+		router.Get("/{id}", productHandler.GetProduct)
+		router.Put("/{id}", productHandler.UpdateProduct)
+		router.Delete("/{id}", productHandler.DeleteProduct)
+	})
 
 	// User
 	router.Post("/users", userHandler.Create)
