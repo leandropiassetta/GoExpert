@@ -13,22 +13,21 @@ import (
 
 type UserHandler struct {
 	UserDB database.UserInterface
-
-	// JWT -> JSON Web Token is a standard used to create access tokens for an application, him is a string that has three parts: a header, a payload, and a signature.
-	JWT           *jwtauth.JWTAuth
-	JWTExperiesIn int
 }
 
-func NewUserHandler(userDB database.UserInterface, jwt *jwtauth.JWTAuth, JWTExperiesIn int) *UserHandler {
+func NewUserHandler(userDB database.UserInterface) *UserHandler {
 	return &UserHandler{
-		UserDB:        userDB,
-		JWT:           jwt,
-		JWTExperiesIn: JWTExperiesIn,
+		UserDB: userDB,
 	}
 }
 
+// JWT -> JSON Web Token is a standard used to create access tokens for an application, him is a string that has three parts: a header, a payload, and a signature.
+
 func (handler *UserHandler) GetJWT(w http.ResponseWriter, r *http.Request) {
 	var user dto.GetJWTInput
+
+	jwt := r.Context().Value("jwt").(*jwtauth.JWTAuth)
+	jwtExperiesIn := r.Context().Value("jwtExperiesIn").(int)
 
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
@@ -47,9 +46,9 @@ func (handler *UserHandler) GetJWT(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, tokenString, _ := handler.JWT.Encode(map[string]interface{}{
+	_, tokenString, _ := jwt.Encode(map[string]interface{}{
 		"sub": u.ID.String(),
-		"exp": time.Now().Add(time.Second * time.Duration(handler.JWTExperiesIn)).Unix(),
+		"exp": time.Now().Add(time.Second * time.Duration(jwtExperiesIn)).Unix(),
 	})
 
 	accessToken := struct {

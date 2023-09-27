@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/go-chi/chi"
@@ -39,13 +40,17 @@ func main() {
 	// User
 
 	userDB := database.NewUser(db)
-	userHandler := handlers.NewUserHandler(userDB, configs.TokenAuth, configs.JWTExperesIn)
+	userHandler := handlers.NewUserHandler(userDB)
 
 	// create a new router and register the handler functions for each route defined
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
+	// router.Use(LogRequest)
 
-	println("Server running on port 8000")
+	// recoverer middleware - recover from panics without crashing the server, the web server will continue running
+	router.Use(middleware.Recoverer)
+	router.Use(middleware.WithValue("jwt", configs.TokenAuth))
+	router.Use(middleware.WithValue("jwtExpiresIn", configs.JWTExperesIn))
 
 	// POST /products - create a new product and return the product in the response body as JSON (StatusCreated) or return a status code 400 (BadRequest) if the request body is invalid or a status code 500 (InternalServerError) if there was an error while saving the product into the database
 
@@ -65,6 +70,19 @@ func main() {
 	router.Post("/users", userHandler.Create)
 	router.Post("/users/generate_token", userHandler.GetJWT)
 
+	println("Server running on port 8000")
 	// ListenAndServe starts an HTTP server with a given address and handler. The handler is usually nil, which means to use DefaultServeMux. Handle and HandleFunc add handlers to DefaultServeMux
 	http.ListenAndServe(":8000", router)
+}
+
+// client -> request -> http handler -> middleware -> http handler -> response -> client
+
+// the middleware receive a paramater that will be called next. This parameter is a function that will be called after the middleware logic is executed, will continue your execution for the next middleware or the handler function
+func LogRequest(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		r.Context().Value("user")
+
+		log.Printf("Request: %s %s %s", r.Method, r.URL.Path, r.RemoteAddr)
+		next.ServeHTTP(w, r)
+	})
 }
