@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"time"
 
@@ -269,7 +270,7 @@ func (table *TableBasics) InsertRecord() {
 // scan a record from dynamoDB
 func (table *TableBasics) ScanRecords() {
 	// Criar contexto com timeout de 5 segundos
-	_, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
 	// Criar input para scan
@@ -280,9 +281,8 @@ func (table *TableBasics) ScanRecords() {
 	}
 
 	// Scan -> retorna todos os itens da tabela
-	// result, err := table.DynamoDbClient.ScanWithContext(ctx, input)
-
-	result, err := table.DynamoDbClient.Scan(input)
+	result, err := table.DynamoDbClient.ScanWithContext(ctx, input)
+	// result, err := table.DynamoDbClient.Scan(input)
 	if err != nil {
 		log.Println("Error scanning table:", err)
 		return
@@ -297,26 +297,69 @@ func (table *TableBasics) ScanRecords() {
 	}
 }
 
+func (table *TableBasics) ListTables() {
+	// Criar contexto com timeout de 5 segundos
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	// Criar input para listar tabelas
+	input := &dynamodb.ListTablesInput{}
+
+	// ListTables -> retorna todas as tabelas
+	result, err := table.DynamoDbClient.ListTablesWithContext(ctx, input)
+	if err != nil {
+		log.Println("Error listing tables:", err)
+		return
+	}
+
+	log.Println("Tables:")
+	// range -> percorre todas as tabelas
+	for _, table := range result.TableNames {
+		log.Println("Table:", *table)
+	}
+}
+
 // pega atributos de uma tabela
 func (table *TableBasics) GetTableAttributes() {
 	// Criar contexto com timeout de 5 segundos
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	// Criar input para pegar atributos da tabela
-	input := &dynamodb.DescribeTableInput{
-		// Definir nome da tabela
-		TableName: aws.String(table.TableName),
-	}
+	for {
+		// Criar input para listar tabelas
+		input := &dynamodb.ListTablesInput{}
 
-	// Pegar atributos da tabela
-	result, err := table.DynamoDbClient.DescribeTableWithContext(ctx, input)
-	if err != nil {
-		log.Println("Error getting table attributes:", err)
-		return
-	}
+		// ListTables -> retorna todas as tabelas
+		result, err := table.DynamoDbClient.ListTablesWithContext(ctx, input)
+		if err != nil {
+			if aerr, ok := err.(awserr.Error); ok {
+				switch aerr.Code() {
+				case dynamodb.ErrCodeInternalServerError:
+					fmt.Println(dynamodb.ErrCodeInternalServerError, aerr.Error())
+				default:
+					fmt.Println(aerr.Error())
+				}
+			} else {
+				// Print the error, cast err to awserr.Error to get the Code and
+				// Message from an error.
+				fmt.Println(err.Error())
+			}
+			return
+		}
 
-	log.Println("Table attributes:", result.Table.AttributeDefinitions)
+		for _, n := range result.TableNames {
+			fmt.Println(*n)
+		}
+
+		// assign the last read tablename as the start for our next call to the ListTables function
+		// the maximum number of table names returned in a call is 100 (default), which requires us to make
+		// multiple calls to the ListTables function to retrieve all table names
+		input.ExclusiveStartTableName = result.LastEvaluatedTableName
+
+		if result.LastEvaluatedTableName == nil {
+			break
+		}
+	}
 }
 
 func main() {
@@ -345,7 +388,7 @@ func main() {
 	// Criar instância de TableBasics
 	basics := TableBasics{
 		DynamoDbClient: dynamoDBClient,
-		TableName:      "DynamoTest",
+		TableName:      "AWSEndpointsInventory",
 	}
 
 	// Chamar o método para criar a tabela
@@ -356,4 +399,7 @@ func main() {
 
 	// Chamar o método para pegar os atributos da tabela
 	// basics.GetTableAttributes()
+
+	// Chamar o método para listar as tabelas
+	// basics.ListTables()
 }
