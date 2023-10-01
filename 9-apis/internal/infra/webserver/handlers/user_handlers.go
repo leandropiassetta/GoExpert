@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -25,9 +26,20 @@ func NewUserHandler(userDB database.UserInterface) *UserHandler {
 	}
 }
 
-// JWT -> JSON Web Token is a standard used to create access tokens for an application, him is a string that has three parts: a header, a payload, and a signature.
-
+// GetJWT godoc
+// @Summary Get a user JWT
+// @Description Get a user JWT with the input payload
+// @Tags users
+// @Accept  json
+// @Produce  json
+// @Param request body dto.GetJWTInput true "user credentials"
+// @Success 200 {object} dto.GetJWTOutput
+// @Failure 404 {object} Error
+// @Failure 500 {object} Error
+// @Router /users/generate_token [post]
 func (handler *UserHandler) GetJWT(w http.ResponseWriter, r *http.Request) {
+	// JWT -> JSON Web Token is a standard used to create access tokens for an application, him is a string that has three parts: a header, a payload, and a signature.
+
 	var user dto.GetJWTInput
 
 	jwt := r.Context().Value("jwt").(*jwtauth.JWTAuth)
@@ -41,7 +53,9 @@ func (handler *UserHandler) GetJWT(w http.ResponseWriter, r *http.Request) {
 
 	u, err := handler.UserDB.FindByEmail(user.Email)
 	if err != nil {
-		w.WriteHeader(http.StatusUnauthorized)
+		w.WriteHeader(http.StatusNotFound)
+		err := Error{Message: err.Error()}
+		json.NewEncoder(w).Encode(err)
 		return
 	}
 
@@ -55,11 +69,11 @@ func (handler *UserHandler) GetJWT(w http.ResponseWriter, r *http.Request) {
 		"exp": time.Now().Add(time.Second * time.Duration(jwtExperiesIn)).Unix(),
 	})
 
-	accessToken := struct {
-		AccessToken string `json:"access_token"`
-	}{
+	accessToken := dto.GetJWTOutput{
 		AccessToken: tokenString,
 	}
+
+	fmt.Println("tokenString", tokenString)
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(accessToken)
