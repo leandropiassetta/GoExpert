@@ -11,10 +11,24 @@ import (
 	"github.com/leandropiassetta/goexpert/9-apis/internal/entity"
 	"github.com/leandropiassetta/goexpert/9-apis/internal/infra/database"
 	"github.com/leandropiassetta/goexpert/9-apis/internal/infra/webserver/handlers"
+	httpSwagger "github.com/swaggo/http-swagger"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+
+	// its necessary to import the docs package to generate the swagger docs
+	_ "github.com/leandropiassetta/goexpert/9-apis/docs"
 )
 
+// @title Swagger Go Expert API Example
+// @version 1.0
+// @description Product API Example with a JWT authentication
+// @termsOfService http://swagger.io/terms/
+
+// @host localhost:8000
+// @BasePath  /
+// @securityDefinitions.apikey ApiKeyAuth
+// @in header
+// @name Authorization
 func main() {
 	// config := configs.NewConfig()
 	// println(config.GetDbDriver())
@@ -69,6 +83,8 @@ func main() {
 	// User
 	router.Post("/users", userHandler.Create)
 	router.Post("/users/generate_token", userHandler.GetJWT)
+
+	router.Get("/docs/*", httpSwagger.Handler(httpSwagger.URL("http://localhost:8000/docs/doc.json")))
 
 	println("Server running on port 8000")
 	// ListenAndServe starts an HTTP server with a given address and handler. The handler is usually nil, which means to use DefaultServeMux. Handle and HandleFunc add handlers to DefaultServeMux
