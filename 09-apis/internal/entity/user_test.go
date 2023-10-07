@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-	"github.com/leandropiassetta/goexpert/9-apis/internal/entity"
+	"github.com/leandropiassetta/goexpert/09-apis/internal/entity"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/go-chi/jwtauth"
-	"github.com/leandropiassetta/goexpert/9-apis/internal/dto"
-	"github.com/leandropiassetta/goexpert/9-apis/internal/entity"
-	database "github.com/leandropiassetta/goexpert/9-apis/internal/infra/database"
+	"github.com/leandropiassetta/goexpert/09-apis/internal/dto"
+	"github.com/leandropiassetta/goexpert/09-apis/internal/entity"
+	database "github.com/leandropiassetta/goexpert/09-apis/internal/infra/database"
 )
 
 type Error struct {

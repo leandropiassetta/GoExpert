@@ -1,7 +1,7 @@
 package database
 
 import (
-	"github.com/leandropiassetta/goexpert/9-apis/internal/entity"
+	"github.com/leandropiassetta/goexpert/09-apis/internal/entity"
 	"gorm.io/gorm"
 )
 

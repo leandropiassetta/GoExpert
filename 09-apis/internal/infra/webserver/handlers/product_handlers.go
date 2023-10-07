@@ -7,10 +7,10 @@ import (
 	"strconv"
 
 	"github.com/go-chi/chi"
-	"github.com/leandropiassetta/goexpert/9-apis/internal/dto"
-	"github.com/leandropiassetta/goexpert/9-apis/internal/entity"
-	"github.com/leandropiassetta/goexpert/9-apis/internal/infra/database"
-	entityPkg "github.com/leandropiassetta/goexpert/9-apis/pkg/entity"
+	"github.com/leandropiassetta/goexpert/09-apis/internal/dto"
+	"github.com/leandropiassetta/goexpert/09-apis/internal/entity"
+	"github.com/leandropiassetta/goexpert/09-apis/internal/infra/database"
+	entityPkg "github.com/leandropiassetta/goexpert/09-apis/pkg/entity"
 )
 
 type ProductHandler struct {

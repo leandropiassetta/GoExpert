@@ -1,12 +1,11 @@
 go 1.20
 
 use (
-	./7-packaging/1
-	./7-packaging/2
-	./8-testing/class-one
-	./8-testing/class-two
-	./8-testing/class-three
-	./8-testing/class-four
-	./9-apis
-	./dynamodb
+	./07-packaging/1
+	./07-packaging/2
+	./08-testing/class-one
+	./08-testing/class-two
+	./08-testing/class-three
+	./08-testing/class-four
+	./09-apis
 )

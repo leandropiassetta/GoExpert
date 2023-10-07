@@ -1,4 +1,4 @@
-module github.com/leandropiassetta/goexpert/9-apis
+module github.com/leandropiassetta/goexpert/09-apis
 
 go 1.20
 

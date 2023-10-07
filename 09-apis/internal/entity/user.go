@@ -3,7 +3,7 @@ package entity
 // Entity is where we define our rules of our business logic and our data structure for our application.
 
 import (
-	"github.com/leandropiassetta/goexpert/9-apis/pkg/entity"
+	"github.com/leandropiassetta/goexpert/09-apis/pkg/entity"
 	"golang.org/x/crypto/bcrypt"
 )
 

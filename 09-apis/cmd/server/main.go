@@ -7,16 +7,16 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/jwtauth"
-	"github.com/leandropiassetta/goexpert/9-apis/configs"
-	"github.com/leandropiassetta/goexpert/9-apis/internal/entity"
-	"github.com/leandropiassetta/goexpert/9-apis/internal/infra/database"
-	"github.com/leandropiassetta/goexpert/9-apis/internal/infra/webserver/handlers"
+	"github.com/leandropiassetta/goexpert/09-apis/configs"
+	"github.com/leandropiassetta/goexpert/09-apis/internal/entity"
+	"github.com/leandropiassetta/goexpert/09-apis/internal/infra/database"
+	"github.com/leandropiassetta/goexpert/09-apis/internal/infra/webserver/handlers"
 	httpSwagger "github.com/swaggo/http-swagger"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
 	// its necessary to import the docs package to generate the swagger docs
-	_ "github.com/leandropiassetta/goexpert/9-apis/docs"
+	_ "github.com/leandropiassetta/goexpert/09-apis/docs"
 )
 
 // @title Swagger Go Expert API Example
