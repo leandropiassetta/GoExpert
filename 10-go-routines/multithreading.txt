@@ -1,0 +1,23 @@
+Section 1: Introduction to Multithreading
+- Multithreading is a technique that allows a CPU to execute multiple tasks from a single process at the same time. This results in greater utilization of processing resources, can significantly improve the performance of applications, and also increases their responsiveness by allowing tasks to run in the background while the user interface remains interactive.
+
+Section 2: Processes and Threads
+- Processes are running instances of a program in an operating system. Each process has its own memory space and dedicated resources. Also, a process can create new processes (child processes), and each of these child processes can have their own threads. Threads are smaller units of execution within a process. A process can have one or more threads, sharing the same memory space and resources of the parent process.
+
+Section 3: Memory Sharing Problems
+- Threads share the same memory within a process, which can lead to concurrency problems such as "race conditions", "deadlocks", and "starvation". A "race condition" occurs when two or more threads try to access and modify the same variable or resource simultaneously, leading to unexpected results. A deadlock occurs when two or more threads are indefinitely waiting for a resource that the other is holding. Starvation occurs when one or more threads are prevented from accessing resources due to the prioritization of other threads.
+
+Section 4: Using Mutex to Prevent "Race Conditions"
+- Mutex (mutual exclusion) is a technique to prevent "race conditions" and ensure that only one thread accesses a shared resource at a time. When a thread acquires a mutex, other threads must wait until the mutex is released to access the resource, ensuring data integrity.
+
+Section 5: Concurrency vs. Parallelism
+- Concurrency refers to the execution of multiple tasks in a system, where tasks can be interleaved or run in parallel. Parallelism involves the simultaneous execution of tasks on multiple CPU cores, allowing for a real increase in performance.
+
+Section 6: Go's Approach to Concurrency and Parallelism
+- The Go programming language supports concurrency through goroutines, which are lightweight units of execution. Goroutines can run in parallel on multicore systems, providing real performance gains. Go uses channels to facilitate safe communication between goroutines, avoiding "race conditions". In addition, Go also supports the creation of buffered channels that can store multiple values, allowing goroutines to communicate without blocking.
+
+Section 7: Resource Efficiency in Go
+- Go is known for its resource efficiency. Goroutines in Go are lightweight and consume much less memory than traditional threads. The Go runtime includes its own scheduler that efficiently manages the execution of goroutines, allowing thousands of them to be run simultaneously on a single operating system thread. In addition, Go also has a garbage collector to free memory that is no longer needed.
+
+ðSection 8: Final Considerations
+- When working with concurrency and multithreading, it is essential to thoroughly test the code and use diagnostic tools, such as the race package in Go, to identify and fix concurrency problems. Understanding the difference between concurrency and parallelism is crucial for designing efficient systems. The correct use of mutexes and channels can help avoid concurrency issues in multithreaded applications. However, although concurrency can improve performance, it can also make programs more complex and difficult to debug. Therefore, it should be used with caution and proper understanding.
