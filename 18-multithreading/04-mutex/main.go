@@ -10,6 +10,7 @@ import (
 var number uint64
 
 func main() {
+	// MUTEX(Mutual Exclusion) is a mechanism to synchronize access to a shared resource.
 	mutex := sync.Mutex{}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

@@ -1,11 +1,11 @@
 go 1.20
 
 use (
-	./07-packaging/1
-	./07-packaging/2
-	./08-testing/class-one
-	./08-testing/class-two
-	./08-testing/class-three
-	./08-testing/class-four
-	./09-apis
+	./15-packaging/1
+	./15-packaging/2
+	./16-testing/class-one
+	./16-testing/class-two
+	./16-testing/class-three
+	./16-testing/class-four
+	./17-apis
 )
